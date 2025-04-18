@@ -1,59 +1,18 @@
-# XytTest
+Exercise
+In trading environments, markets are driven by order books that display various ask (sell) and bid (buy) levels.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+Asks: Represent prices at which sellers are willing to sell an asset.
+Bids: Represent prices at which buyers are willing to purchase the asset.
 
-## Development server
+Visualizing this data helps in understanding market depth and liquidity, which can be crucial for traders making quick decisions.
 
-To start a local development server, run:
+Build an interactive data visualization tool in Angular that displays trading information provided in a JSON file - https://big-xyt.com/assets/files/sample.json. The provided data is essentially an order book snapshot at different moments. Each snapshot includes one timestamp and 10 levels of ask and bid prices.
 
-```bash
-ng serve
-```
+Features:
+View Snapshot: display the order book for a selected moment
+Time Navigation: provide controls to navigate between available timestamps
+Replay mode: implement a “replay” mode that animates the progression through all snapshots. The entire dataset should be replayed over a fixed period (e.g. 30 seconds) with the relative time intervals (proportions) between snapshots preserved.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+As an example, you can use this market simulator: https://oxford-man.ox.ac.uk/projects/market-simulator/. Feel free to visualise it differently, if you will find it to be clearer to the user. Use your preferred visualisation library. 
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Please provide a link to the repository with the code.
