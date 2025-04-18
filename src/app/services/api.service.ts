@@ -9,20 +9,27 @@ export class ApiService {
   private http = inject(HttpClient);
 
   getData() {
+    // CORS restricts requests from localhost for https://big-xyt.com/assets/files/sample.json
     return this.http.get<{ data: any[] }>('./assets/data.json').pipe(
       map(({ data }) =>
         data.reduce((acc, item) => {
           acc.set(item.Time, this.processSnapshotData(item));
           return acc;
         }, new Map())
-      )
+      ),
+      tap((data) => console.log(data))
     );
   }
 
   private processSnapshotData(bidsObject: any) {
-    const structuredData: { [key: string]: any } = {};
     let maxAsk = 0;
     let maxBid = 0;
+    const levels: {
+      ask?: number;
+      askSize?: number;
+      bid?: number;
+      bidSize?: number;
+    }[] = [];
 
     for (let i = 1; i <= 10; i++) {
       const level = i.toString();
@@ -31,31 +38,34 @@ export class ApiService {
       const bidPriceKey = `Bid${level}`;
       const bidSizeKey = `Bid${level}Size`;
 
-      structuredData[i] = {};
+      const levelData: {
+        ask?: number;
+        askSize?: number;
+        bid?: number;
+        bidSize?: number;
+      } = {};
 
       if (
         bidsObject.hasOwnProperty(askPriceKey) &&
         bidsObject.hasOwnProperty(askSizeKey)
       ) {
-        const ask = bidsObject[askPriceKey];
-        const askSize = bidsObject[askSizeKey];
-        structuredData[i].ask = ask;
-        structuredData[i].askSize = askSize;
-        maxAsk = Math.max(maxAsk, askSize);
+        levelData.ask = bidsObject[askPriceKey];
+        levelData.askSize = bidsObject[askSizeKey];
+        maxAsk = Math.max(maxAsk, levelData.askSize!);
       }
 
       if (
         bidsObject.hasOwnProperty(bidPriceKey) &&
         bidsObject.hasOwnProperty(bidSizeKey)
       ) {
-        const bid = bidsObject[bidPriceKey];
-        const bidSize = bidsObject[bidSizeKey];
-        structuredData[i].bid = bid;
-        structuredData[i].bidSize = bidSize;
-        maxBid = Math.max(maxBid, bidSize);
+        levelData.bid = bidsObject[bidPriceKey];
+        levelData.bidSize = bidsObject[bidSizeKey];
+        maxBid = Math.max(maxBid, levelData.bidSize!);
       }
+
+      levels.push(levelData);
     }
 
-    return { ...structuredData, maxAsk, maxBid };
+    return { levels, maxAsk, maxBid };
   }
 }
