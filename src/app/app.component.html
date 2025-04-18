@@ -1,1 +1,54 @@
-<div>howdy</div>
+<div class="wrapper">
+  <button (click)="onPrevClick()" class="button">←</button>
+  <div class="container">
+    @for(stamp of data$().keys(); track stamp) {
+    <button
+      (click)="onStampClick(stamp)"
+      class="button"
+      [class.active]="activeStamp$() === data$().get(stamp)"
+    >
+      {{ stamp }}</button
+    >}
+  </div>
+  <button (click)="onNextClick()" class="button">→</button>
+</div>
+
+<div class="legend">
+  <div class="ask">ask</div>
+  <div class="bid">bid</div>
+</div>
+
+<div class="chart">
+  <div class="top">
+    <div class="left">
+      @for(line of activeStamp$()?.levels; track $index) {
+      <div
+        [ngStyle]="{
+          width: calculateWidth(line.askSize, 'ask') + '%'
+        }"
+        class="ask-line"
+      >
+        {{ line.ask + line.askSize }}
+      </div>
+
+      }
+    </div>
+    <div class="right"></div>
+  </div>
+  <div class="bottom">
+    <div class="left"></div>
+    <div class="right">
+      @for(line of activeStamp$()?.levels; track $index) {
+      <div
+        [ngStyle]="{
+          width: calculateWidth(line.bidSize, 'bid') + '%'
+        }"
+        class="bid-line"
+      >
+        {{ line.bid + line.bidSize }}
+      </div>
+
+      }
+    </div>
+  </div>
+</div>
