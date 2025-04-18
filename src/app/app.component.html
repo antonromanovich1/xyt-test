@@ -1,5 +1,4 @@
 <div class="wrapper">
-  <button (click)="onPrevClick()" class="button">←</button>
   <div class="container">
     @for(stamp of data$().keys(); track stamp) {
     <button
@@ -10,12 +9,13 @@
       {{ stamp }}</button
     >}
   </div>
-  <button (click)="onNextClick()" class="button">→</button>
 </div>
 
 <div class="legend">
   <div class="ask">ask</div>
   <div class="bid">bid</div>
+  <div><button (click)="play()">Play</button></div>
+  <div><button (click)="stop()">Stop</button></div>
 </div>
 
 <div class="chart">
@@ -28,7 +28,7 @@
         }"
         class="ask-line"
       >
-        {{ line.ask + line.askSize }}
+        {{ line.ask }}
       </div>
 
       }
@@ -45,7 +45,7 @@
         }"
         class="bid-line"
       >
-        {{ line.bid + line.bidSize }}
+        {{ line.bid }}
       </div>
 
       }

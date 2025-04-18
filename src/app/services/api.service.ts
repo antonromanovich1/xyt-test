@@ -16,8 +16,7 @@ export class ApiService {
           acc.set(item.Time, this.processSnapshotData(item));
           return acc;
         }, new Map())
-      ),
-      tap((data) => console.log(data))
+      )
     );
   }
 
